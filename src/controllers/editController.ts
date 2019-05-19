@@ -1,6 +1,6 @@
 import knex from '../utils/knexfile';
 import { Request, Response } from 'express';
-import { getAllTodos } from './getTodos';
+import { getAllTodos } from './getController';
 import { ITodoList, ITodoItem } from '../utils/definitions';
 
 // TODO 항목 제목/내용/우선순위/마감기한 변경
@@ -10,12 +10,7 @@ export const editTodoContent = (req: Request, res: Response) => {
 		.update(editedTodo)
 		.where('id', editedTodo.id)
 		.then(() => {
-			getAllTodos((todoList: ITodoList) => {
-				res.json({
-					success: true,
-					todoList
-				});
-			});
+			getAllTodos(req, res);
 		})
 		.catch(error => {
 			res.json({
@@ -32,12 +27,7 @@ export const editTodoCompleted = (req: Request, res: Response) => {
 		.update({completed: editedTodo.completed})
 		.where('id', editedTodo.id)
 		.then(() => {
-			getAllTodos((todoList: ITodoList) => {
-				res.json({
-					success: true,
-					todoList
-				});
-			});
+			getAllTodos(req, res);
 		})
 		.catch(error => {
 			res.json({

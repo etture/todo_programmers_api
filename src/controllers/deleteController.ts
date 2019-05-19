@@ -1,6 +1,6 @@
 import knex from '../utils/knexfile';
 import { Request, Response } from 'express';
-import { getAllTodos } from './getTodos';
+import { getAllTodos } from './getController';
 import { ITodoList, ITodoItem } from '../utils/definitions';
 
 // TODO 항목 삭제
@@ -10,12 +10,7 @@ export const deleteTodo = (req: Request, res: Response) => {
 		.delete()
 		.where('id', id)
 		.then(() => {
-			getAllTodos((todoList: ITodoList) => {
-				res.json({
-					success: true,
-					todoList
-				});
-			});
+			getAllTodos(req, res);
 		})
 		.catch(error => {
 			res.json({
