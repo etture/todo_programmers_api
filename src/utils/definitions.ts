@@ -19,3 +19,9 @@ export interface ITodoItem {
 	deadline?: string
 };
 
+export interface IPreDBTodoItem {
+	title: string,
+	content: string,
+	priority?: number,
+	deadline?: string
+};
