@@ -4,7 +4,7 @@ import { getAllTodos } from './getTodos';
 import { ITodoList, ITodoItem } from '../utils/definitions';
 
 // MySQL 시간: time.toISOString()
-// 새로운 TODO 항목 생성
+// 새로운 TODO 작성 (선택에 따라 마감기한/우선순위 설정)
 export const createNewTodo = (req: Request, res: Response) => {
 	const newTodoReq: ITodoItem = req.body;
 	knex.insert(newTodoReq)
@@ -15,7 +15,7 @@ export const createNewTodo = (req: Request, res: Response) => {
 					success: true,
 					todoList
 				});
-			})
+			});
 		})
 		.catch(error => {
 			res.json({

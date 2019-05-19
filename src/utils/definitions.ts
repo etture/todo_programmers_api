@@ -10,6 +10,7 @@ export interface ITodoList {
 
 // TODO 항목
 export interface ITodoItem {
+	id: number,
 	title: string,
 	content: string,
 	createdAt: string,

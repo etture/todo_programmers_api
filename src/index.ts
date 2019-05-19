@@ -17,10 +17,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static("public"));
 app.use(cors());
 
-import routerApi from './routes/index';
-
 // Router endpoint
-// app.use('/api', routerApi);
+import routerApi from './routes/index';
 app.use('/api', routerApi);
 
 // Server connectivity test page
@@ -30,7 +28,7 @@ app.get("/", (req, res) => {
 	);
 });
 
-
+// Server connection
 app.listen(PORT, () => {
 	console.log(`server started on ${PORT}`);
 });
