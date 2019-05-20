@@ -9,7 +9,11 @@ export const signUp = (req: Request, res: Response, next: CallableFunction) => {
 	const { nickname, password } = credentials;
 
 	if (nickname === '' || password === '') {
-		return res.status(422).send({ errorMessage: 'Must provide both email and password' });
+		return res.send({
+			success: false,
+			errorMessage: '닉네임과 비밀번호를 모두 입력해주세요.',
+			target: 'both'
+		});
 	}
 
 	knex.select('*')
@@ -18,7 +22,11 @@ export const signUp = (req: Request, res: Response, next: CallableFunction) => {
 		.limit(1)
 		.then(result => {
 			if (result.length > 0) {
-				return res.status(422).send({ errorMessage: 'Nickname is in use' });
+				return res.send({
+					success: false,
+					errorMessage: '이미 등록된 닉네임입니다.',
+					target: 'nickname'
+				});
 			}
 
 			hashPassword(password, (error: any, hashedPassword: string) => {
@@ -27,14 +35,15 @@ export const signUp = (req: Request, res: Response, next: CallableFunction) => {
 					.returning('id')
 					.then(id => {
 						res.json({
+							success: true,
 							userId: id[0]
 						});
 					})
 					.catch(error => {
-						res.status(400).json({
+						res.json({
 							success: false,
 							errorMessage: "회원가입 에러가 발생했습니다. 다시 시도해주세요!",
-							error
+							target: 'both'
 						});
 					});
 			});
@@ -49,7 +58,11 @@ export const signIn = (req: Request, res: Response, next: CallableFunction) => {
 	const { nickname, password } = credentials;
 
 	if (nickname === '' || password === '') {
-		return res.status(422).send({ errorMessage: 'Must provide both email and password' });
+		return res.send({
+			success: false,
+			errorMessage: '닉네임과 비밀번호를 모두 입력해주세요.',
+			target: 'both'
+		});
 	}
 
 	knex.select('*')
@@ -60,13 +73,22 @@ export const signIn = (req: Request, res: Response, next: CallableFunction) => {
 			if (!result) {
 				return res.json({
 					success: false,
-					message: 'No such nickname'
+					errorMessage: '등록되지 않은 닉네임입니다.',
+					target: 'nickname'
 				});
 			}
 			const user = JSON.parse(JSON.stringify(result))[0];
 			bcrypt.compare(password, user.password, (error, isMatch) => {
-				if (error) return res.json({success: false, message: 'compare error'});
-				if (!isMatch) return res.json({success: false, message: 'wrong password'});
+				if (error) return res.json({ 
+					success: false, 
+					errorMessage: '비밀번호를 제대로 입력해주세요.',
+					target: 'password'
+				});
+				if (!isMatch) return res.json({ 
+					success: false, 
+					errorMessage: '비밀번호가 틀렸습니다.',
+					target: 'password'
+				});
 				return res.json({
 					success: true,
 					userId: user.id
@@ -74,10 +96,10 @@ export const signIn = (req: Request, res: Response, next: CallableFunction) => {
 			});
 		})
 		.catch(error => {
-			res.status(400).json({
+			res.json({
 				success: false,
 				errorMessage: "로그인 에러가 발생했습니다. 다시 시도해주세요!",
-				error
+				target: 'both'
 			});
 		});
 };
