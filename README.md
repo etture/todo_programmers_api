@@ -1,4 +1,5 @@
 # 프로그래머스 썸머코딩 2019 2차 개발과제 
+## 이진우 (etture@gmail.com)
 ## TODO list 만들기 -- 백엔드 API
 ## 실행 URL: [https://todo-programmers-api.herokuapp.com/api](링크)
 
