@@ -11,6 +11,7 @@ export interface ITodoList {
 // TODO 항목
 export interface ITodoItem {
 	id: number,
+	userid: number,
 	title: string,
 	content: string,
 	createdAt: string,
@@ -20,8 +21,14 @@ export interface ITodoItem {
 };
 
 export interface IPreDBTodoItem {
+	userid: number,
 	title: string,
 	content: string,
 	priority?: number,
 	deadline?: string
+};
+
+export interface IAuth {
+	nickname: string,
+	password: string
 };

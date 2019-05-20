@@ -5,10 +5,10 @@ import { ITodoList, ITodoItem } from '../utils/definitions';
 
 // TODO 항목 삭제
 export const deleteTodo = (req: Request, res: Response) => {
-	const { id } = req.body;
+	const { id, userid } = req.body;
 	knex('todos')
 		.delete()
-		.where('id', id)
+		.where({id, userid})
 		.then(() => {
 			getAllTodos(req, res);
 		})

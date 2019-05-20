@@ -24,6 +24,7 @@
 	},
 	"homepage": "https://github.com/etture/todo_programmers_api#readme",
 	"dependencies": {
+		"bcrypt": "^3.0.6",
 		"body-parser": "^1.19.0",
 		"cookie-parser": "^1.4.4",
 		"cors": "^2.8.5",
@@ -36,6 +37,7 @@
 		"mysql": "^2.17.1"
 	},
 	"devDependencies": {
+		"@types/bcrypt": "^3.0.0",
 		"@types/body-parser": "^1.17.0",
 		"@types/cors": "^2.8.5",
 		"@types/dotenv": "^6.1.1",
