@@ -36,7 +36,8 @@ export const signUp = (req: Request, res: Response, next: CallableFunction) => {
 					.then(id => {
 						res.json({
 							success: true,
-							userId: id[0]
+							userId: id[0],
+							nickname
 						});
 					})
 					.catch(error => {
@@ -91,7 +92,8 @@ export const signIn = (req: Request, res: Response, next: CallableFunction) => {
 				});
 				return res.json({
 					success: true,
-					userId: user.id
+					userId: user.id,
+					nickname
 				});
 			});
 		})
