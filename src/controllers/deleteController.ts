@@ -1,7 +1,6 @@
 import knex from '../utils/knexfile';
 import { Request, Response } from 'express';
 import { getAllTodos } from './getController';
-import { ITodoList, ITodoItem } from '../utils/definitions';
 
 // TODO 항목 삭제
 export const deleteTodo = (req: Request, res: Response) => {

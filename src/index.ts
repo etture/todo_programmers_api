@@ -18,8 +18,8 @@ app.use(express.static("public"));
 app.use(cors());
 
 // Router endpoint
-import routerApi from './routes/index';
-app.use('/api', routerApi);
+import ApiRouter from './routes/index';
+app.use('/api', ApiRouter);
 
 // Server connectivity test page
 app.get("/", (req, res) => {
